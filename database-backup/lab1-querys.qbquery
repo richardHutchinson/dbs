@@ -1,0 +1,15 @@
+﻿SELECT *
+  FROM users;
+
+SELECT *
+  FROM users
+  WHERE lastname = 'Smith'
+  OR age >= 21;
+
+SELECT userid,firstname,lastname,users.userTypeId,userType
+  FROM users
+  JOIN userType ON users.userTypeId = userType.userTypeId
+  WHERE age < 25;
+
+INSERT INTO users (firstname,lastname,username,password,userTypeId,userStatusId,dob)
+  VALUES ("Jim","Rainar","rebel","justic",1,1,"1988-02-25");

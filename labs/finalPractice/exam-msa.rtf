@@ -1,0 +1,257 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red192\green80\blue77;\red0\green0\blue255;\red165\green165\blue165;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\lang9\f0\fs22 DBS 1112 Practice Final Exam (Practical)\par
+\par
+HOW TO READ THIS DOCUMENT\par
+\par
+Lines beginning with ">" are example Terminal commands.  They should be typed into a Terminal window without the ">" before them.  Watch for "yourname", which you will substitute with your first initial followed by last full name.  For example, I would use "rosborne".  Example:\par
+\par
+> git pull\par
+\par
+Lines beginning with "***" are Answer lines.  They will have a section in square brackets that may contain a numeric range that your answer should fall into.  You must replace this range with your answer.  These answers are a graded part of the exam, so don't miss any of them!  Example:\par
+\par
+*** Record Count: [ 15-25 ]\par
+\par
+In the previous line, you would replace "15-25" with the number of records you got back, such as "17".\par
+\par
+You will also see lines like the following:\par
+\par
+SQL:\par
+\par
+After each of these lines, paste your SQL that answers the previous question.  Make sure your SQL is formatted to be readable, with major clauses like SELECT, FROM, and WHERE on their own lines, and not just one giant block of code.  Part of your grade for each question is based on legibility.\par
+\par
+\par
+PREPARATION\par
+\par
+1. Create a new branch with your name in Git:\par
+\par
+> git branch -t yourname\par
+\par
+2. Switch into your new branch:\par
+\par
+> git checkout yourname\par
+\par
+3. Verify that you are in your own branch:\par
+\par
+> git branch\par
+\par
+This should produce the following output:\par
+\par
+   master\par
+*  yourname\par
+\par
+Make sure the asterisk is beside your name.\par
+\par
+4. Save a copy of this exam as "yourname.txt" in the same folder.  Make sure it is still plain text -- not RTF, not HTML, not DOC.  Just plain text.  Failure to do so will result in a zero for the final.\par
+\par
+5. Add this new text file to Git:\par
+\par
+> git add yourname.txt\par
+\par
+6. Commit your changes:\par
+\par
+> git commit -m 'Starting exam'\par
+\par
+7. Push this file once to show the Instructor that you have started the exam:\par
+\par
+> git push origin yourname\par
+\par
+\par
+DURING THE EXAM\par
+\par
+You must add the one test file and commit after each question, and the commit message must state which question you have just answered.  For example:\par
+\par
+> git add yourname.txt ; git commit -m 'Question 1'\par
+\par
+Failing to commit after each question or use meaningful commit messages will result in a lowered grade, as 10% of your grade on this exam is regular, meaningful commits.\par
+\par
+While you will commit often, you MUST NOT push until given permission by the Instructor.\par
+\par
+\par
+ONE LAST THING\par
+\par
+Close this exam-msa.txt file and open your yourname.txt file.  All changes must be done in that file, not this one.  Changes to the exam-msa.txt file will result in a grade penalty.\par
+\par
+Back?  Good.  Now remove all these instructions from your file and begin the exam.\par
+\par
+\par
+EXAM\par
+\par
+*** Name: [   ]\par
+\par
+\par
+PART I: Import\par
+\par
+With the exam you have been given files named exam-msa.sql, exam-msa.csv, and exam-msa.pdf.\par
+\par
+1. Use Sequel Pro to create a new database named "dbs1112PF".\par
+\par
+2. Switch to your new "dbs1112PF" database.\par
+\par
+3. Import the exam-msa.sql file.  This will create a table named "msa_raw", as well as a number of other tables that start with "msa_".\par
+\par
+4. Import the exam-msa.csv file into your new "msa_raw" table.\par
+\par
+*** Record count of "msa_raw" table: [ 300000-310000 ]\par
+\par
+This data set comes from the USA's Bureau of Labor Statistics' Occupational Employment Statistics package.  It breaks down jobs and pay rates for each year by Metropolitan Statistical Areas, grouping cities in a single region together into an MSA to allow for easier reporting.  You're going to do some analysis of the data, but first you need to normalize it properly -- which requires proper keying and indexing.\par
+\par
+PART II: Keys and Indexes\par
+\par
+1. Some of the lookup tables use surrogate keys with typical "id" columns: "msa_jobs" and "msa_areas".  Use ALTER TABLE statements to add primary keys to each of these tables and paste the SQL below.  If you don't remember the ALTER TABLE syntax from your homework, look it up in the mySQL Help in Sequel Pro.\par
+\par
+SQL: (2 statements)\par
+\par
+\par
+2. One of the lookup tables uses a simple, natural key: "msa_states".  Use an ALTER TABLE statement to add a primary keys to this table.\par
+\par
+SQL:\par
+\par
+\par
+3. The facts table, "msa_facts", uses a composite key.  Refer to the entity diagram and use an ALTER TABLE statements to add a primary key to this table.\par
+\par
+SQL:\par
+\par
+\par
+4. Refer to the entity diagram and use ALTER TABLE statements to add all of the required foreign key constraints.  You should end up with 3 foreign keys.  Remember to set all foreign keys to cascade.\par
+- \cf1\b rich note\cf0\b0 : the facts table is to point to the jobs table and the areas table as a forign key, then from the areas table to the states table as a forign key\line\tab - john mentioned there needs to be a forign key made in the facts table and use that to the other tables as the forign key\par
+- {\field{\*\fldinst{HYPERLINK "http://www.w3schools.com/SQL/sql_alter.asp"}}{\fldrslt{\ul\cf2 http://www.w3schools.com/SQL/sql_alter.asp}}}\f0\fs22\par
+- {\field{\*\fldinst{HYPERLINK "http://stackoverflow.com/questions/2914624/composite-keys-as-foreign-key"}}{\fldrslt{\ul\cf2 http://stackoverflow.com/questions/2914624/composite-keys-as-foreign-key}}}\f0\fs22\par
+SQL:  (3 statements)\par
+\par
+\par
+5. You should also create a few unique indexes to make sure no data is duplicated.  Write ALTER TABLE or CREATE UNIQUE INDEX statements to add a unique index to each Name column in the "msa_jobs" and "msa_areas" tables.\par
+\par
+SQL:  (2 statements)\par
+\par
+\par
+\par
+PART III: Normalization\par
+\par
+Your goal for this section is to split the data from the "msa_raw" table into the supporting tables.\par
+\par
+Keep an eye out for errors as you import -- the unique indexes and primary keys you created will prevent you from inserting duplicate records, so your SELECT queries will need to ensure that each record is unique.\par
+\par
+1. Use an INSERT-SELECT statement to populate the "msa_states" table.  Make sure you don't insert any NULL or blank records!\par
+\par
+*** Count of records in "msa_states": [ 40-60 ]\par
+SQL:\par
+\par
+\par
+2. Do the same for "msa_areas".  Be sure to include the State.\par
+\par
+*** Count of records in "msa_areas": [ 300-500 ]\par
+SQL:\par
+\par
+\par
+3. Do the same for "msa_jobs".  Be sure to include the Level.\par
+\par
+*** Count of records in "msa_jobs": [ 800-850 ]\par
+SQL:\par
+\par
+\par
+4. Do the same for "msa_facts".\par
+\par
+*** Count of records in "msa_facts": [ 300000-310000 ]\par
+SQL:\par
+\par
+\par
+Now that your tables are normalized, keyed, and indexed, you should no longer use the "msa_raw" table for any of your queries.  To prevent you from forgetting, you may want to rename the table to "DONOTUSE".  You will not get any points for queries that use this table.\par
+\par
+\par
+PART IV: Views\par
+\par
+This data set includes records that are summaries of other records.  For example, jobs ending in "-0000" summarize the other records that have the same prefix: "15-0000" summarizes all of the "15-****" records.  The "00-0000" records summarize all of the other records for that year.\par
+\par
+If you ran queries without taking these summary records into account, you might end up with bogus results.\par
+\par
+1. Create three views of your "msa_jobs" table named "msa_jobs_total", "msa_jobs_major", and "msa_jobs_detail".  Each view should include only the ID and Name columns, and only the records with the appropriate Level.  (The Detail level should include only jobs without a Level -- the detail records.)\par
+\par
+*** Count of records in view "msa_jobs_total": [ 0-10 ]\par
+*** Count of records in view "msa_jobs_major": [ 20-30 ]\par
+*** Count of records in view "msa_jobs_detail": [ 750-800 ]\par
+SQL:  (3 statements)\par
+- three create view statements\par
+\par
+2. Using the "msa_jobs_detail" view as a base, inner join to the "msa_facts" table to make a new view named "msa_facts_detail" which contains only the Detail-level facts.  Fetch the unique columns from both tables (don't get two IDs).\par
+\par
+*** Count of records in view "msa_facts_detail": [ 280000-290000 ]\par
+SQL:\par
+\par
+\par
+3. Build on your "msa_facts_detail" view to create a new view named "msa_facts_detail_area" view, which includes the Area Name and State.\par
+\par
+*** Count of records in view "msa_facts_detail_area": [ 280000-290000 ]\par
+SQL:\par
+\par
+\par
+\par
+PART V: Aggregates, Take 1\par
+\par
+Use your "msa_facts_detail_area" and aggregate functions to answer the following questions.  You will need to provide both the numeric answer and the SQL to find your answer.\par
+\par
+1. How many employed people were included in the statistics for each year?\par
+\par
+Year  Employed\par
+====  =============\par
+2008  [ 110M-120M ]\par
+2009  [ 100M-110M ]\par
+\par
+SQL:\par
+SELECT calendarYear,\line\tab SUM(employed) as employed\line FROM msa_facts_detail_area \cf3\b -- msa_facts_detail_area is a view\cf0\b0\line GROUP BY calendarYear;\par
+\par
+2. Refactor your query to replace the number of employed with two new columns: the average Annual Mean salary (how much does the average American make per year?), and the total wages earned per year by all Americans (use the same Annual Mean, multiplied by the number of employed).  Divide the total wages by 1 trillion to get an easier number, and report the answer to 4 decimal places.\par
+\par
+Year  AvgAnnual    TotalWages\par
+====  ===========  =============\par
+2008  [ 40K-50K ]  [ 4.7T-4.8T ]\par
+2009  [ 40K-50K ]  [ 4.7T-4.8T ]\par
+\par
+SQL:\par
+SELECT calendarYear\line\tab SUM(annualMean) as annualMean,\line\tab SUM(employed * annualMean)/1000000000 as TotalWages\line FROM msa_facts_detail_area\line GROUP BY calendarYear;\par
+\par
+3. Start a new query, still using your "msa_facts_detail_area" view.  This one will look for computer jobs (which have an ID that starts with '15') in Florida in 2009.  For each job, get the lowest, highest, and average annual mean salary.  Filter out any jobs that average less than $60K/year.  Order your results from highest to lowest average salary.\par
+\par
+*** If the top result is rank 1, what's the rank 1 job? [ ... ]\par
+*** What rank do Database Administrators get? [ 1-15 ]\par
+*** What's the minimum annual salary for a DBA job? [ 50000-60000 ]\par
+\par
+SQL:\par
+- this is part of the answer LIKE '15%'\par
+\par
+\par
+PART VI: Subqueries\par
+\par
+1. Your "msa_facts_detail" view uses inner joins.  Rewrite the query so that instead of joining to your "msa_jobs_detail" view, it joins your "msa_facts" table to an inline view subquery of your "msa_jobs" table that performs the same filtering.  It should return the same results as the detail view.\par
+\par
+*** Count of records: [ 280000-290000 ]\par
+SQL:\par
+CREATE VIEW msa_facts_detail AS\line SELECT ...\line FROM (\line\tab SELECT ...\line );\par
+\par
+2. Refactor your last query to include a join to another subquery that returns only areas in Florida.\par
+\par
+*** Count of records [ 16000-17000 ]\par
+SQL:\par
+SELECT...\line FROM (\line\tab SELECT jobId, jobName\line\tab FROM msa_jobs\line\tab WHERE jobLevel = ''\line\tab OR jobLevel IS NULL\line );\par
+\par
+3. You're going to refactor your Florida jobs query from above to use a scalar subquery.\par
+  a. Start with your "msa_jobs" table and filter so that all of the job IDs start with '15'.\par
+  b. Use a scalar subquery to find the average annual mean salary for each job -- this will involve joining your "msa_facts" table to your "msa_areas" table and filtering for Florida in 2009.\par
+  c. Don't forget to join your scalar subquery back to your main table!\par
+  d. Perform the same filtering to eliminate average salaries below $60K.\par
+  e. Order by descending average salary.\par
+\par
+*** Average annual salary for DBAs: [ 65000-70000 ]\par
+SQL:\par
+SELECT...\line\tab (SELECT...) AS ...\line FROM msa_jobs\line WHERE jobId LIKE '15%'\line ...\line ...\line HAVING ... > 6000\line ORDER BY ...\par
+\par
+\par
+FINISHING YOUR EXAM\par
+\par
+1. Go back through this file and search for all "***" and "SQL:" markers.  Make sure you have answers for all of them.\par
+\par
+2. Commit your files (this text file and your graph PNG image) with the commit message "Finished exam".\par
+\par
+3. Raise your hand and inform the Instructor that you are finished.  DO NOT PUSH UNTIL TOLD TO DO SO.\par
+}
+ 

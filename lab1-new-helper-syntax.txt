@@ -1,0 +1,3 @@
+create table
+alter
+primary and forign keys

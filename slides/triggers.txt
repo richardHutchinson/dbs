@@ -1,0 +1,23 @@
+Triggers
+
+-------------------------------------------------------------
+Example 
+
+delimiter $$
+
+
+CREATE TRIGGER `usersCreatedDateInsert`BEFORE INSERT ON `users`FOR EACH ROW BEGINSET NEW.createdDate = NOW();SET NEW.age = round(DATEDIFF(NOW(),new.DOB)/365);END$$
+
+
+CREATE TABLE `userChanges` (
+  `userChangeId` int(11) NOT NULL AUTO_INCREMENT,
+  `changeDate` date DEFAULT NULL,
+  `userId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`userChangeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+
+CREATE TRIGGER usersUpdateafter update ON usersFOR EACH ROW 
+BEGIN
+	insert into userChanges (changeDate,userID) values (NOW(),NEW.userId);
+END$$

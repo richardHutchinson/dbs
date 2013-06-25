@@ -1,0 +1,659 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fcharset0 Arial;}{\f1\fnil\fcharset0 Calibri;}}
+{\colortbl ;\red128\green0\blue0;\red0\green0\blue255;\red255\green0\blue0;\red0\green0\blue0;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\f0\fs20 * \b DBS\b0\par
+- database structures\par
+\par
+- databases: is a place to store data\par
+\par
+- MySQL is a relational database\par
+\par
+----\par
+\par
+- \b labs\b0 :\par
+\par
+\pard\sa200\sl276\slmult1\lang9\f1\fs22 - \b mongo project\b0 : creating a user interface which talks to mongo and mysql\par
+\pard - \b collection\b0 : mongo use database, john is useing this more. one can now asign a use databasse call to a group of databases. ex: if one has a shopping cart one can group databases to use for that shopping cart\lang1033\f0\fs20\par
+\par
+----\par
+\par
+* \b ORM\b0 :\par
+\tab - \b Object-relational mapping\b0 : programming technique for converting data between incompatible type systems in object-oriented programming languages.\par
+\par
+----\par
+\par
+* \cf1\b Important\cf0\b0 : \b structuring a database\b0  (\cf1\b normalization\cf0\b0 ):\par
+- if making a database for employees and the employees have hobbies; make one database for employee hobbies / talents and another for employee information, such as emails, phone numbers, departments, etc...\par
+\par
+- \b normalization\b0 :\par
+\tab - \b ex\b0 : two tables one for emails and one for users so the user will not have  multiple emails in the users table. we can instead put the email's id from the user_emails table  into the user's table.\par
+\par
+----\par
+\par
+jcabibbo@fullsail.com\par
+AIM: same\par
+\par
+----\par
+\par
+SQL: now means structured query language\par
+\par
+----\par
+\par
+- cron for timer to update stuff (think its a program)\par
+\tab - Cron is a time-based job scheduler in Unix-like computer operating systems\par
+\par
+----\par
+\par
+* a SKU (pronounced skue) number is the barcode on a product\par
+\par
+----\par
+\par
+- non-relational databases\par
+\tab - Couch DB\par
+\tab - Mongo\par
+\tab - Big Table\par
+\par
+- no relation ships\par
+- data is stored documents (buckets)\par
+- relations are not defined\par
+- benefits: performance\par
+- cons: dist space\par
+\par
+----\par
+\par
+* \b\i installing MySQL for mac computers\b0\i0 :\par
+\par
+- \b start MAMP\b0  (for mac computers)\par
+- \b download & install sequel pro\b0  (sql pro is like MySQL GUI Tools)\par
+\tab - {\field{\*\fldinst{HYPERLINK "http://www.sequelpro.com/"}}{\fldrslt{\ul\cf2 http://www.sequelpro.com/}}}\f0\fs20\par
+- \b MySQL Workbench\b0 : good for ER diaframs - this is how to get the movable tables.\par
+\tab - {\field{\*\fldinst{HYPERLINK "http://wb.mysql.com/"}}{\fldrslt{\ul\cf2 http://wb.mysql.com/}}}\f0\fs20\par
+\par
+\tab - click on new connection\par
+\tab - name local\par
+\tab - port number 8889\par
+\tab - hit test connection\par
+\tab - then hit ok\par
+\tab - pw might be root\par
+\tab\par
+\tab - database, then click revers engenear\par
+\tab - when at the page to select a database pick example 1112 (database we created - this will be a option after a few "nexts")\par
+\tab - keep going, hit exicute\par
+\tab - should be 14 tables that export\par
+\par
+\tab - mousing over the titles show the foreign key path and the table link\par
+\par
+\tab - once the tables look good (visually appealing), click save model as\par
+\par
+- \b PHPMyAdmin\b0  ({\field{\*\fldinst{HYPERLINK "http://localhost:8888/MAMP/"}}{\fldrslt{\ul\cf2 http://localhost:8888/MAMP/}}}\f0\fs20 ) though the 8888 might be 9999 on my PC\par
+\par
+directory: local\par
+ip: 127.0.0.1\par
+pw: root\par
+pw: root\par
+port: 8889\par
+\par
+* \b installing MySQL on windows\b0 : refer to sql notes in notes folder\par
+\tab - MySQL workbench use - Windows (x86, 32-bit), MSI Installer\par
+\par
+* for my laptop:\par
+\par
+directory (aka stored connection): localhost\par
+ip (aka server host): localhost\par
+pw: root\par
+pw: root\par
+port: 3306 (this is my MySQL - port)\par
+\par
+- don't type the password, just hit enter\par
+\par
+----\par
+\par
+* to do: import "example_Student_database.sql" into examplestudents database I made\par
+\tab - location: dbs_slides\par
+\par
+* \b\i database for the class\b0\i0 :\par
+user: exampleStudent\par
+\tab - made a folder for this in my websites folder "dbs-examplestudent"\par
+\par
+----\par
+\par
+- \b %%\b0  means: wild card; aka any charactors before the percent sign, then the value inbetween (aka %a% "a" would be the middle), and every charactor after the end %.\par
+\par
+----\par
+\par
+- \b normalize database\b0 : save space\par
+\tab - 1: eliminate repeating groups in individual tables, aka not repeating fields\par
+\tab - 2: create a separate table for each set of related data\par
+\tab - 3: every column must have a primary key\par
+\tab - 4: every row and column must have one value, aka not richard@fullsail.com, and richard@gmail.com, make two columns for the two different emails\par
+\par
+\tab - the best way to think of this is which field would be best in a dropdown, then normalize that field (aka make a new table and then use that tables id's in the original field).\par
+\par
+----\par
+\par
+* \b\i SQL injection\b0\i0 :\par
+- in a user name or password input field the hacker would put 123; DELETE * FROM users;\par
+\tab - this will take the 123 and then stop, then run the delete statement and delete all the users\par
+\par
+----\par
+\par
+* use \b INNoDB\b0  for DBS course (done by check box when making a new database): row level locking, transaction support, foreign key constraints and crash recovery.\par
+\tab - allows one admin to lock, edit the row and then unlock the row to prevent two admins from editing the same row\par
+* other is \b MyISAM\b0 : locks rows.\par
+\tab - is good for full text searches\par
+\par
+--------\par
+\par
+* first lab is in the get repository.\par
+\par
+1: INSERT INTO users(userID,firstname,lastname,username,password,userTypeID,userStatusID,DOB)\par
+  VALUES(16,"Richard","Hutchinson","Rich","Rich",1,1,19880225);\par
+\par
+2: INSERT INTO userEmail(userEmailId,userId,userEmail,userEmailTypeId)\par
+  VALUES\par
+    (5,16,"rhutchinson1@gmail.com",2),\par
+    (6,16,"rhutchinson1@gmail.com",2);\par
+\par
+INSERT INTO userPhone(userPhoneId,userId,userPhone,userPhoneTypeId)\par
+  VALUES\par
+    (2,16,"555-555-555",3),\par
+    (3,16,"555-555-555",3);\par
+\par
+3: hint: 4 joins\par
+\par
+user\par
+\par
+email\par
+phone number\par
+\par
+phone type\par
+email type\par
+\par
+SELECT\par
+  u.userId as userID,\par
+  p.userId as phoneUserID,\par
+  p.userPhone as phoneNumer,\par
+  p.userPhoneTypeId,\par
+  e.userId as emailUserID,\par
+  e.userEmail as email,\par
+  e.userEmailTypeId\par
+  FROM users u\par
+    JOIN;\par
+\par
+----\par
+\par
+* \b MySQL Workbench\b0 :\par
+- this is the new program for SQL database interface. allows the user to move database tables in a visual container.\par
+\par
+----\par
+\par
+* \b .csv\b0  file format\par
+- this is the format for a database spreadsheet (mainly using microsoft excel)\par
+\par
+----\par
+\par
+* \b crows feet\b0 :\par
+- means 1 to many\par
+- can not add more to another related table's records unless it matches\par
+\par
+----\par
+\par
+look up \b INNER JOIN\par
+\par
+\b0 - data has to exists in both tables\par
+\par
+----\par
+\par
+- \b outer join\b0 : is a \b left join\b0  or a \b right join\b0\par
+\tab\tab - \b used for\b0 : when one wants to get all of the rows in another table that exist use an outer join aka left or right join, most of the time left join\par
+\tab - left join sometimes it's refered to as left outer join\par
+\tab - right join\par
+\par
+----\par
+\par
+- constraints:\par
+\tab - allow null, in the table set up (allow null - check it, do not allow null - do not check it)\par
+\tab - default: one can set the default value\par
+\par
+----\par
+\par
+cartesion product: this is a "join" with out a "on"\par
+\par
+----\par
+\par
+* \b primary key\b0 :\par
+- has to be unique - mainly the ID of a column is the primary key\par
+\tab - its between one table\par
+\tab * \b two types of keys\b0 :\par
+\tab\tab - \b surrogate key\b0 : means random\par
+\tab\tab\tab - example: has to be unique; a venue number is unique - the venue number will never be the same number\par
+\tab\tab - \b foreign key\b0 : 1 to many - ID value in the master table, the id can repeat, so where the "make" table's ID will not repeat in the master table the "make's" ID may repeat\par
+\tab\tab\tab - its between two tables\par
+\tab\tab\tab - \cf3\b note\cf0\b0 : make sure the \b reference is pointing to a primary key\b0 . this is in one of the questions in the practice before the final\par
+\par
+* \b composite key\b0 :\par
+- this is a key where there are multiple keys (aka more than just the primary key and foreign key)\par
+\pard\sa200\sl276\slmult1\lang9\f1\fs22\tab - \b composite (multi-column) primary key\b0 :\b\par
+\tab\tab - \b0 adding more than one field as the primary key in a table\par
+\tab\tab - \b ex\b0 : Create table CustomerProducts(\par
+\tab\tab\tab CustomerID int references Customers(CustomerID) not null,\par
+\tab\tab\tab ProductID int references Products(ProductID) not null,\par
+\tab\tab\tab OrderLimit int not null,\par
+\tab\tab\tab Primary key (CustomerID, ProductID)\par
+\tab\tab )\par
+\pard\tab\tab - Notice here that we have eliminated the identity column, and have instead defined a composite (multi-column) primary key as the combination of the CustomerID and ProductID columns.  Therefore, we do not have to create an additional unique constraint.  We also do not need an additional identity column that really serves no purpose.  We have not only simplified our data model physically, but we\rquote ve also made it more logically sound and the primary key of this table accurately explains what it is this table is modeling \endash  the relationship of a CustomerID to a ProductID.\lang1033\f0\fs20\par
+\par
+* \b surrogate keys / natural\b0 :\par
+- surrogate keys are not related to the records (just filling in so to speak), natural keys are (note: they are related to the records) (the id's)\par
+\par
+- \b surrogate key\b0 :\par
+\tab - A surrogate key like a natural key is a column that uniquely identifies a single record in a table.  But this is where the similarity stops.  Surrogate keys are similar to surrogate mothers.   They are keys that don\rquote t have a natural relationship with the rest of the columns in a table.  The surrogate key is just a value that is generated and then stored with the rest of the columns in a record.  The key value is typically generated at run time right before the record is inserted into a table.   It is sometimes also referred to as a dumb key, because there is no meaning associated with the value.  Surrogate keys are commonly a numeric number.\par
+\tab - {\field{\*\fldinst{HYPERLINK "http://www.databasejournal.com/features/mssql/article.php/3922066/SQL-Server-Natural-Key-Verses-Surrogate-Key.htm"}}{\fldrslt{\ul\cf2 http://www.databasejournal.com/features/mssql/article.php/3922066/SQL-Server-Natural-Key-Verses-Surrogate-Key.htm}}}\f0\fs20\par
+\par
+- \b natural key\b0 :\par
+\tab - A natural key is a single column or set of columns that uniquely identifies a single record in a table, where the key columns are made up of real data.\~ When I say \ldblquote real data\rdblquote  I mean data that has meaning and occurs naturally in the world of data.\~ A natural key is a column value that has a relationship with the rest of the column values in a given data record.\~\~ Here are some examples of natural keys values: Social Security Number, ISBN, and TaxId.\par
+\tab - {\field{\*\fldinst{HYPERLINK "http://www.databasejournal.com/features/mssql/article.php/3922066/SQL-Server-Natural-Key-Verses-Surrogate-Key.htm"}}{\fldrslt{\ul\cf2 http://www.databasejournal.com/features/mssql/article.php/3922066/SQL-Server-Natural-Key-Verses-Surrogate-Key.htm}}}\f0\fs20\par
+\par
+----\par
+\par
+* \b Relations\b0 :\par
+- aka how the foreign keys and primary keys work\par
+\par
+* \b\i one to one\b0\i0 :\par
+- one table to another table\par
+- only 2 tables\par
+\par
+* \b\i one to many\b0\i0 :\par
+- happens once in one table (aka primary key table), then many times in a master table (aka pulling primary keys from a table with the color of cars, this field in this master table will have many id's listed)\par
+- one table to many other tables\par
+- 1 to many tables\par
+\par
+* \b\i many to many\b0\i0 :\par
+- many tables to many other tables\par
+- 1 or more than one table to many other tables\par
+\par
+----\par
+\par
+* \b EXPLAIN \b0 tableName\b ;\b0\par
+- this will list the table and all it's records. displays all the info th` SQL does behind the scenes.\par
+\par
+----\par
+\par
+* SELECT \b count(\b0 *\b )\b0  FROM ...\par
+- counts the number of rows that in a specific column\par
+\par
+----\par
+\par
+* \b ALTER TABLE\b0\par
+\par
+ALTER TABLE table_name\par
+\tab ADD column_name column-definition;\par
+\par
+- link: {\field{\*\fldinst{HYPERLINK "http://www.techonthenet.com/sql/tables/alter_table.php"}}{\fldrslt{\ul\cf2 http://www.techonthenet.com/sql/tables/alter_table.php}}}\f0\fs20\par
+\par
+----\par
+\par
+- \b aggregate functions\b0 : process of grouping records: used when there are many records, and they need to be grouped\par
+\tab - works across rows\par
+\par
+\tab - \b note\b0 : when running an aggregate function in the background the code is doing sorting, spliting and squishing\par
+\par
+\tab - \b original\b0  - this is where the data starts\par
+\tab - \b sort\b0  - sorts the data - into order\par
+\tab - \b split\b0  - splits the data\par
+\tab - \b squish\b0  (or \b aggregate\b0 ) - pushes everything into one column (this is where aggregation happens)\par
+\par
+----\par
+\par
+- \b scailar function\b0 :\par
+\tab - works across columns\par
+\par
+----\par
+\par
+1st normal form\par
+\tab - eliminate repeating groups in individual tables\par
+\tab - create a separate table for each set of related data\par
+\tab - identify each set of related data with a primary key\par
+\tab - every row * column has exactly one value\par
+\par
+2nd normal form\par
+\tab - aka 2NF\par
+\tab - in each table, the rows should be dependent on each other, we don't want redundant data\par
+\par
+3d normal form\par
+\tab - if first two are met\par
+\tab - fields should be dependent on the primary key\par
+\par
+----\par
+\par
+* \b views\b0 : can be used at the beginning of any sql statement\par
+\tab - \b used for\b0 : when one does not want to wright something more than once, use  a view\par
+- used to create a virtual table\par
+- downside is: that this runs in the background\par
+\tab - security changes a lot thus learning every security aspect is redundant\par
+- benefits: easier queries, security, select only\par
+- \b CREATE VIEW\b0  'userView' AS (\par
+\tab SELECT\par
+\tab\tab `users`.`firstname` AS `firstname`,\par
+\tab\tab `users`.`lastname` AS `lastname`,\par
+\tab\tab `users`.`username` AS `username`,\par
+\tab\tab `users`.`DBS` AS `bob`,\par
+\tab\tab `userStatus`.`userStatus` AS `userStatus`,\par
+\tab\tab `userType`.`userType` AS `userType`,\par
+\tab\tab `users`.`createdDate` AS `createdDate`,\par
+FROM ((`users` JOIN `userStatus`) JOIN `userType`)\par
+WHERE (`users`.`userStatus` = `userStatus`.`userStatusId`)\par
+AND (`users`.`userTypeId` = `userType\par
+\par
+\tab - \b note\b0 : most are read only - this is due to most being a select statement\par
+\par
+--\par
+\par
+* \b inline view\b0 : \cf1\b dont use \cf4 these types of query statements - unless one only needs to run something once\b0\par
+\tab - \b note\b0 : replacing a table with a select statement\par
+\tab - \cf0 inline view: used when replacing a talbe with a select table\par
+- SELECT statement with another SELECT statement inside the JOIN\par
+\tab - good for selecting a lot of data\par
+\par
+- inline view means the view is inside the from statement\par
+\par
+* \b inline view\b0 : \par
+\par
+SELECT u.userId,firstname,lastname,orderCount\par
+FROM users u\par
+LEFT JOIN (\par
+\tab SELECT userId, COUNT(*) AS orderCount\par
+\tab FROM orders GROUP BY userId)\par
+\tab AS oc\par
+ON oc.userId = u.userId;\par
+\par
+--\par
+\par
+* \b scalar sub-queries\b0 : select statement is inside the select part - try not to do this, only do it when the servers may have a down time - will bog the server due to running lots of select statements\par
+\tab - two select statements with one inside the other\par
+\par
+SELECT userId,firstname,lastname,\par
+\tab (SELECT COUNT(*)\par
+\tab FROM userEmail ue\par
+\tab WHERE ue.userId = u.userId)\par
+\tab AS emailCount\par
+FROM users u;\par
+\par
+--\par
+\par
+* \b types of queries\b0 :\par
+- \b correlated\b0 :\par
+\tab - sql statement connected to the inner sql statement\par
+\tab - has a relation\par
+\par
+- \b non-correlated\b0 :\par
+\tab - means they are independent\par
+\tab - the inside select statement only runs once\par
+\par
+SELECT *\par
+FROM item i \cf1\b - Note: dosn't change based on what item we are looking at\cf0\b0\par
+WHERE i.itemPrice >= (\par
+\tab SELECT AVG(i2.itemPrice) AS averagePrice\par
+\tab FROM item i2;\par
+\par
+- note: the average will not change - the average is not dependent on the \par
+\par
+----\par
+\par
+* \b aliasing\b0 :\par
+\tab - using "as" is called aliasing\par
+\tab - don't need aliasing really any more\par
+\par
+- though name.field - the "name" is a table though it's defining which table,  this is not aliasing\par
+\par
+----\par
+\par
+- \b like\b0 :\par
+\tab - ex: like "number%"\par
+\tab - any varchar can have a \b like\b0\par
+\par
+----\par
+\par
+* \b case statement\b0 :\par
+- pros: this is good due to running the validation in the query not taxing the server with values from the webpage\par
+\par
+SELECT ...\par
+\tab CASE\par
+\tab when age > 21\par
+\tab\tab THEN 'leagal'\par
+\tab ELSE\par
+\tab\tab 'go home kid'\par
+\tab END\par
+\tab AS drinkingStatus,\par
+\tab age\par
+\tab FROM users;\par
+\par
+- or - \par
+\par
+SELECT lastname,firstname,\par
+\tab CASE WHEN age < 18\par
+\tab\tab THEN "Your a Minor"\par
+\tab WHEN age >= 18 AND age < 25\par
+\tab\tab THEN "out on your own"\par
+\tab WHEN age >= 25 AND age < 50\par
+\tab\tab THEN "Family Time"\par
+\tab WHEN age >= 50 AND age < 60\par
+\tab\tab THEN "Go buy a corvette"\par
+\tab ELSE "No DOB Available"\par
+\tab END\par
+\tab AS Statement\par
+FROM users;\par
+\par
+----\par
+\par
+* \b trigger\b0 :\par
+- is a named database object that is associated with a table\par
+\tab - activates when a particular event occurs for the table\par
+\tab - Link: {\field{\*\fldinst{HYPERLINK "http://dev.mysql.com/doc/refman/5.0/en/create-trigger.html"}}{\fldrslt{\ul\cf2 http://dev.mysql.com/doc/refman/5.0/en/create-trigger.html}}}\f0\fs20\par
+\par
+- when troubleshooting:\par
+\tab - when a database starts to do stuff on its own its due to triggers\par
+\par
+- SHOW\b  TRIGGER\b0 ; - put this in the sql coding area and it will show all triggers\par
+\tab - this will show triggers - if there are any\par
+\par
+- SHOW CREATE TRIGGER usersCreatedDateInsert;\par
+\tab - usersCreatedDateInsert is just the name of the trigger\par
+\par
+- view > table triggers in \b sequel pro\b0\par
+\par
+----\par
+\par
+- \b short circuit\b0 : first true statement it stops\par
+\par
+----\par
+\par
+\b joins\b0 :\par
+\tab - inner join: have to have data in both tables\par
+\tab\tab - returns all data that is the same in both tables\par
+\par
+\tab - outer:\par
+\tab\tab - right join: the table which the FROM is referencing (ex: FROM table) is the left join, the right is after JOIN RIGHT table\par
+\tab\tab\tab - returns all the data in the right table (which is after the RIGHT JOIN syntax), regardless if it's in the left table\par
+\tab\tab - left join: the table which the FROM is referencing (ex: FROM table) is the left join\par
+\tab\tab\tab - returns all the data in the left table (which is after the FROM syntax), regardless if it's in the right table\par
+\par
+--\par
+\par
+- \b left outer\b0 :\par
+\tab - left refers to the table, thus get everything from the left table\par
+\tab\tab - \b ex\b0 : left outer join userEmail on users.userId = userEmail.userId\par
+\tab\tab\tab - this will get all the users.userId from the users that match the users in the right userEmail table\par
+\par
+- \b right outer\b0 :\par
+\tab - right refers to the table to the right in the join.\par
+\tab\tab - \b ex\b0 : right outer join userEmail on users.userId = userEmail.userId\par
+\tab\tab\tab - this will get all the userEmail.userId from the users that match in the user in the left users table\par
+\par
+----\par
+\par
+\b on\b0 : is used to join tables\par
+\b where\b0 : specifies where something is\par
+\tab - \b and\b0 : used after the \b where\b0 , can filter more records\par
+\b having\b0 : (used on aggregate columns) has values, goes after the group by but befor the order by\par
+\tab - must have a \b group by\b0\par
+\tab - the "having" can only reference fields in the select statement\par
+\tab - is after the aggregates accured\par
+\par
+- \b distinct\b0 (fieldName): gets the unique field's records\par
+\par
+- INSERT INTO table(fieldName)\par
+\tab (SELECT fieldname\par
+\tab\tab FROM table\par
+\tab WHERE fieldName > 40);\par
+\par
+----\par
+\par
+\b CRUD\b0 : select, insert, update, delete\par
+\tab - others: create, alter, drop, truncate\par
+\par
+----\par
+\par
+* don't use commas, only for spacing:\par
+- use ` `\par
+\par
+----\par
+\par
+* creating a new table with sql\par
+\par
+create table states(\par
+\tab stateAbr varchar(2) not null,\par
+\tab stateName varchar(50) not null,\par
+\tab primary key(stateAbr)\par
+);\par
+\par
+- another example:\par
+\par
+create table states(\par
+\tab primary key(stateId) int not null auto_incrament,\par
+\tab stateAbr varchar(2) not null,\par
+\tab stateName varchar(50) not null\par
+);\par
+\par
+* alter\par
+\par
+alter table users add foreign key userStateFK(userState)\par
+references states(stateAbr);\par
+\par
+----\par
+\par
+- \b indexes\b0 :\par
+\par
+\tab - \b types of indexs\b0 :\par
+\tab\tab - unique index\par
+\tab\tab - normal index\par
+\par
+- used to speed up a return\par
+- when a primary key is created a index is made\par
+\par
+- to create a index:\par
+\tab - create index lastNameIndex on users(lastName);\par
+\par
+----\par
+\par
+- \b varchar\b0 : limited length, sql 8,000, mysql accumulative - likes will work with varchar\par
+\tab - will show only the letters. no blank spaces after the characters\par
+- \b char\b0 : will show the letters entered into the field and any exstra spaces listed in the preceding length - aka chr(10) will show any letters listed in the record, plus the spaces (blank) until 10 areas are filled\par
+\par
+----\par
+\par
+* \b union\b0 :\par
+\par
+- UNION joins two tables togeather - note UNION will return rows, though it will not return rows that are duplicates of others\par
+\par
+- UNION ALL every row from both data sets including duplicates\par
+\par
+----\par
+\par
+* \b self join\b0 : select inside itself - good for finding duplicate records\par
+\tab - SELECT *\par
+\tab\tab FROM orderItem oi\par
+\tab\tab WHERE 1 < (SELECT COUNT(*) FROM orderItem oi2 WHERE oi2.orderId = oi.orderId);\par
+\par
+----\par
+\par
+\cf1\b * put these in corresponding destination\cf0\b0\par
+\par
+views: bennifit; silplar queries - CREATE VIEW 'userView' AS select ...then start select statement\par
+\par
+order of operations\par
+- from, and joins \b first\b0\par
+- where \b second\b0\par
+- select \b third\b0\par
+- group by \b fourth\b0\par
+- having \b fifth\b0\par
+- order by (if its there) \b sixth\b0\par
+- limit \b seventh\b0\par
+\par
+triggers: CREATE TRIGGER\par
+\par
+isam: full text searches, inno: foreign key constraints\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+natural key: has something to do with the rest of the table\par
+\par
+composit key: primary key with more than one column\par
+\par
+\par
+aggiget function: look up\par
+\tab - also look up aggrigate\par
+\par
+- sql tuning:\par
+\tab - explain - is a code syntax: will give info of what the sql is doing\par
+\tab - code:\par
+\tab\tab - explain users;\par
+\par
+select distinct: gives unique values\par
+\par
+----\par
+\par
+\b numbers tables\b0 :\par
+\par
+- used for graphs\par
+\par
+- say we need to get the age of users for orders\par
+\par
+SELECT age,COUNT(*) AS orderCount\par
+FROM orders\par
+JOIN users ON orders.userId = users.userId\par
+GROUP BY age;\par
+\par
+--\par
+\par
+- \b more advanced numbers table\b0  - follows the one above:\par
+\tab - say we need to get the age of users for orders\par
+\par
+SELECT n AS age\par
+\tab CASE WHEN orderCount > 0\par
+\tab THEN orderCount\par
+\tab ELSE 0 \cf1\b - note: replaces all null's with 0\cf0\b0\par
+\tab END AS orderCount\par
+FROM numbers\par
+\tab LEFT JOIN ( \cf1\b - note: inline view / virtual table\cf0\b0\par
+\tab\tab SELECT age,COUNT(*) AS orderCount\par
+\tab\tab FROM orders\par
+\tab\tab\tab JOIN users ON orders.userId = users.userId\par
+\tab\tab GROUP BY age\par
+\tab ) ageAgg\par
+\tab ON numbers.n = ageAgg.age\par
+WHERE n >= 21\par
+AND n <= 60;\par
+\par
+----\par
+\par
+- \b for viewing table information\b0  in sequel pro (foreign keys, primary keys, etc...): click relations (under the table name)\par
+\par
+----\par
+\par
+error: ambiguous - means the field is being pulled from two different areas\par
+}
+ 

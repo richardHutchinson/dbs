@@ -1,0 +1,6 @@
+- PCI: payment card information
+
+----
+
+- best programming techniques: sans.org
+	- http://www.sans.org/
